@@ -63,7 +63,16 @@ void Image::filterBlue()
 }
 void Image::greyScale()
 {
+    // Reference = https://stackoverflow.com/questions/28923676/convert-ppm-image-to-greyscale-c
 
+    int size = this->w * this->h;
+    for (int i = 0; i < size; i++)
+    {
+        unsigned char greyscaleValue = ((this->pixels[i].r) + (this->pixels[i].g) + (this->pixels[i].b))/3;
+        this->pixels[i].r = greyscaleValue;
+        this->pixels[i].g = greyscaleValue;
+        this->pixels[i].b = greyscaleValue;
+    }
 }
 void Image::flipHorizontal()
 {
