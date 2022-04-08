@@ -27,7 +27,7 @@ string fileType;
 Image *image;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
-        _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+                   _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
     image = new Image();
 
@@ -43,7 +43,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     AppendMenuW(hMenu, MF_STRING, IDM_FILE_QUIT, L"&Quit");
 
     AppendMenuW(Alter, MF_STRING, IDM_EDIT_Greyscale, L"&Greyscale"); // Copy this line to add
-                                                                                                 // more items to the Edit menu;
+    // more items to the Edit menu;
     AppendMenuW(Alter, MF_STRING, IDM_EDIT_FlipHorizontal, L"&Flip Horizontal"); // Copy this line to add
     AppendMenuW(Alter, MF_STRING, IDM_EDIT_FlipVertical, L"&Flip Vertical"); // Copy this line to add
     AppendMenuW(Alter, MF_STRING, IDM_EDIT_FilterRed, L"&Show Only Red"); // Copy this line to add
@@ -53,7 +53,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     AppendMenuW(Alter, MF_STRING, IDM_EDIT_AD1, L"&Additional Function 1"); // Copy this line to add
     AppendMenuW(Alter, MF_STRING, IDM_EDIT_AD2, L"&Additional Function 2"); // Copy this line to add
     AppendMenuW(Alter, MF_STRING, IDM_EDIT_AD3, L"&Additional Function 3"); // Copy this line to add
-     // Copy this line to add
+    // Copy this line to add
 
 
 
@@ -99,18 +99,18 @@ void processMenu(HWND hWnd, WPARAM wParam)
         case IDM_EDIT_Greyscale:
             image->load(current_file);
             image->greyScale(); //comment
-             break;
+            break;
         case IDM_EDIT_FlipHorizontal:
             //image.load(current_file);
             image->flipHorizontal();
             break;
         case IDM_EDIT_FlipVertical:
-             image->flipVertically();
-             break;
+            image->flipVertically();
+            break;
         case IDM_EDIT_FilterRed:
-             image->load(current_file);
-             image->filterRed();
-             break;
+            image->load(current_file);
+            image->filterRed();
+            break;
         case IDM_EDIT_FilterGreen:
             image->load(current_file);
             image->filterGreen();
