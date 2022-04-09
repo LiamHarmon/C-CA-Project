@@ -51,15 +51,27 @@ bool Image::savePPM(string filename)
 
 void Image::filterRed()
 {
-
+    for(int i = 0; i < w*h; i++)
+    {
+        this->pixels[i].g = 0;
+        this->pixels[i].b = 0;
+    }
 }
 void Image::filterGreen()
 {
-
+    for(int i = 0; i < w*h; i++)
+    {
+        this->pixels[i].r = 0;
+        this->pixels[i].b = 0;
+    }
 }
 void Image::filterBlue()
 {
-
+    for(int i = 0; i < w*h; i++)
+    {
+        this->pixels[i].r = 0;
+        this->pixels[i].g = 0;
+    }
 }
 void Image::greyScale()
 {
@@ -77,7 +89,13 @@ void Image::greyScale()
 void Image::flipHorizontal()
 {
 
+    for(int y = 0; y < h; ++y)
+    {
+        for(int x = 0; x < w/2; ++x)
+        {
 
+        }
+    }
 }
 void Image::flipVertically()
 {
