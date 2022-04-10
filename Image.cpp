@@ -7,8 +7,6 @@
 #include <cstring>
 #include "Image.h"
 
-
-
 bool Image::load(string filename)
 {
     ifstream ifs(filename, std::ios::binary);
@@ -45,12 +43,37 @@ bool Image::loadRaw(string filename)
 }
 bool Image::savePPM(string filename)
 {
-    return false;
+    if (w == 0 ||h == 0) {
+        fprintf(stderr, "Can't save an empty image\n");
+        return false;
+    }
+    std::ofstream ofs;
+    try {
+        ofs.open(filename, std::ios::binary); // binary mode for Windows users
+        if (ofs.fail()) throw("Can't open output file");
+        ofs << "P6\n" << w << " " << h << "\n255\n";
+        unsigned char pix[3];
+        // loop over each pixel in the image, clamp and convert to byte format
+        for (int i = 0; i < w * h; i++) {
+            pix[0] = static_cast<unsigned char>(this->pixels[i].r);
+            pix[1] = static_cast<unsigned char>(this->pixels[i].g);
+            pix[2] = static_cast<unsigned char>(this->pixels[i].b);
+            ofs.write(reinterpret_cast<char *>(pix), 3);
+        }
+        ofs.close();
+
+    }
+    catch (const char *err) {
+        fprintf(stderr, "%s\n", err);
+        ofs.close();
+    }
+    return true;
 }
 
 
 void Image::filterRed()
 {
+    // Reference https://www.youtube.com/watch?v=zjxmZ4AODgI&t=193s (2:50)
     for(int i = 0; i < w*h; i++)
     {
         this->pixels[i].g = 0;
@@ -59,6 +82,8 @@ void Image::filterRed()
 }
 void Image::filterGreen()
 {
+    // Reference https://www.youtube.com/watch?v=zjxmZ4AODgI&t=193s (2:50)
+
     for(int i = 0; i < w*h; i++)
     {
         this->pixels[i].r = 0;
@@ -67,6 +92,8 @@ void Image::filterGreen()
 }
 void Image::filterBlue()
 {
+    // Reference https://www.youtube.com/watch?v=zjxmZ4AODgI&t=193s (2:50)
+
     for(int i = 0; i < w*h; i++)
     {
         this->pixels[i].r = 0;
@@ -88,19 +115,29 @@ void Image::greyScale()
 }
 void Image::flipHorizontal()
 {
-
-    for(int y = 0; y < h; ++y)
+    for(int i = 0; i < w/2; i++)
     {
-        for(int x = 0; x < w/2; ++x)
+        for(int x = 0; x < h; x++)
         {
+            unsigned int p1 = i + x * w;
+            unsigned int p2 = (w - 1 - i) + x * w;
 
+            swap(pixels[p1], pixels[p2]);
         }
     }
 }
 void Image::flipVertically()
 {
+    for(int i = 0; i < w; i++)
+    {
+        for(int x = 0; x < h/2; x++)
+        {
+           unsigned int p1 = i + x * w;
+           unsigned int p2 = i + (h - 1 - x) * w;
 
-
+           swap(pixels[p1], pixels[p2]);
+        }
+    }
 }
 void Image::AdditionalFunction2()
 {
