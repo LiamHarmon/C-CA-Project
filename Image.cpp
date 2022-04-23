@@ -166,7 +166,17 @@ void Image::AdditionalFunction2()
 }
 void Image::AdditionalFunction3()
 {
+    // Reference https://www.youtube.com/watch?v=zjxmZ4AODgI&t=369s
 
+    int size = this->w * this->h;
+    for (int i = 0; i < size; i++)
+    {
+        unsigned char pink = (this->pixels[i].r > this->pixels[i].g+90 && this->pixels[i].r > this->pixels[i].b-20)?255:0;
+        this->pixels[i].r = pink;
+        this->pixels[i].g = pink;
+        this->pixels[i].b = pink;
+
+    }
 }
 
 /* Functions used by the GUI - DO NOT MODIFY */
