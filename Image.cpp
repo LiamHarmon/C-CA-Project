@@ -155,6 +155,13 @@ void Image::AdditionalFunction1()
 }
 void Image::AdditionalFunction2()
 {
+    int size = this->w * this->h;
+    for(int i = 0; i < size; i++)
+    {
+        this->pixels[i].r *= 0.25;
+        this->pixels[i].g *= 0.25;
+        this->pixels[i].b *= 0.25;
+    }
 
 }
 void Image::AdditionalFunction3()
