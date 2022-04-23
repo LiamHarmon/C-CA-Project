@@ -43,6 +43,7 @@ bool Image::loadRaw(string filename)
 }
 bool Image::savePPM(string filename)
 {
+    // Reference https://www.scratchapixel.com/lessons/digital-imaging/simple-image-manipulations
     if (w == 0 ||h == 0) {
         fprintf(stderr, "Can't save an empty image\n");
         return false;
@@ -139,15 +140,24 @@ void Image::flipVertically()
         }
     }
 }
+void Image::AdditionalFunction1()
+{
+    // Reference https://www.codeproject.com/Tips/878863/Simple-Method-to-Invert-a-Color
+
+    int size = this->w * this->h;
+    for (int i = 0; i < size; i++)
+    {
+        unsigned char invert = (( 255 - this->pixels[i].r), ( 255 - this->pixels[i].g), ( 255 - this->pixels[i].b));
+        this->pixels[i].r = invert;
+        this->pixels[i].g = invert;
+        this->pixels[i].b = invert;
+    }
+}
 void Image::AdditionalFunction2()
 {
 
 }
 void Image::AdditionalFunction3()
-{
-
-}
-void Image::AdditionalFunction1()
 {
 
 }
