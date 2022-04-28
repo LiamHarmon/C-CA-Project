@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iomanip>
 #include <cstring>
+#include <valarray>
 #include "Image.h"
 
 bool Image::load(string filename)
@@ -39,6 +40,21 @@ bool Image::load(string filename)
 }
 bool Image::loadRaw(string filename)
 {
+    ifstream ifs(filename);
+    if(ifs.good()){
+        ifs >> w;
+        ifs >> h;
+        for(int i = 0; i < w*h; i++){
+            float r, g, b;
+            ifs >> r >> g >> b;
+            pixels[i].r =  pow(r, 1/2.2) * 255;
+            pixels[i].g =  pow(g, 1/2.2) * 255;
+            pixels[i].b =  pow(b, 1/2.2) * 255;
+            cout << r << pixels[i].r << endl;
+        }
+        ifs.close();
+        return true;
+    }
     return false;
 }
 bool Image::savePPM(string filename)
