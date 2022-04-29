@@ -40,6 +40,7 @@ bool Image::load(string filename)
 }
 bool Image::loadRaw(string filename)
 {
+    // Reference https://www.scratchapixel.com/lessons/digital-imaging/digital-images/image-file
     ifstream ifs(filename);
     if(ifs.good()){
         ifs >> w;
@@ -163,8 +164,7 @@ void Image::AdditionalFunction1()
     int size = this->w * this->h;
     for (int i = 0; i < size; i++)
     {
-        unsigned char invert = (( 255 - this->pixels[i].r), ( 255 - this->pixels[i].g), ( 255 - this->pixels[i].b));
-        this->pixels[i].r = invert;
+        unsigned char invert = ((255 - this->pixels[i].r));
         this->pixels[i].g = invert;
         this->pixels[i].b = invert;
     }
@@ -192,6 +192,41 @@ void Image::AdditionalFunction3()
         this->pixels[i].g = pink;
         this->pixels[i].b = pink;
 
+    }
+}
+
+void Image::AdvancedFeature()
+{
+    // Reference https://github.com/delboy8080/CPP22_Start_Code
+
+    for(int y = 0 ; y < h; y++)
+    {
+        for(int x = 0 ; x < w; x++)
+        {
+             float rTotal = 0; float gTotal=0;  float bTotal=0;
+            if(x==0||y==0)
+                continue;
+            else
+            {
+                Rgb blurring[] = {pixels[(y-1)*w+(x-1)],pixels[(y-1)*w+x],pixels[(y-1)*w+x+1]
+                                    ,pixels[(y)*w+x-1],pixels[(y)*w+x],pixels[(y)*w+x+1],
+                                    pixels[(y+1)*w+(x-1)],pixels[(y+1)*w+x],pixels[(y+1)*w+x+1]};
+
+                for(Rgb p: blurring)
+                {
+                    rTotal += p.r;
+                    gTotal += p.g;
+                    bTotal += p.b;
+
+                }
+                pixels[y*w+x].r=rTotal/9;
+                pixels[y*w+x].g=gTotal/9;
+                pixels[y*w+x].b=bTotal/9;
+
+
+            }
+
+        }
     }
 }
 
